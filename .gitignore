@@ -53,6 +53,8 @@ build/
 dist/
 node_modules/
 jspm_packages/
+old_layers/
+layers/
 
 # TypeScript v1 declaration files
 
@@ -140,3 +142,5 @@ dist
 # OSX
 
 .DS_Store
+
+
