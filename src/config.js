@@ -58,6 +58,8 @@ const layerConfigurations = [
       {name: "lizardMidface"},
       {name: "lizardHorns"},
       {name: "lizardEarrings"},
+
+      {name: "rings"},
     ],
   },
 ];
@@ -96,7 +98,7 @@ const text = {
 };
 
 const pixelFormat = {
-  ratio: 2 / 128,
+  ratio: 10 / 128,
 };
 
 const background = {

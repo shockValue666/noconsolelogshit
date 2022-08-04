@@ -181,13 +181,13 @@ const addAttributes = (_element) => {
 };
 
 const loadLayerImg = async (_layer) => {
-  console.log("eimai karaflomalias loadedLayerImg: ",_layer)
-  console.log("eimai karaflomalias gamw ti panagia loadedLayerImg: ",_layer.selectedElement)
+  // console.log("eimai karaflomalias loadedLayerImg: ",_layer)
+  // console.log("eimai karaflomalias gamw ti panagia loadedLayerImg: ",_layer.selectedElement)
   if(_layer.selectedElement){
     if(_layer.selectedElement.path){
         try {
         return new Promise(async (resolve) => {
-          console.log("eimai karaflomalias gamw ti panagia loadedLayerImg inside the try catch shit: ",_layer.selectedElement.path)
+          // console.log("eimai karaflomalias gamw ti panagia loadedLayerImg inside the try catch shit: ",_layer.selectedElement.path)
           const image = await loadImage(`${_layer.selectedElement.path}`);
           resolve({ layer: _layer, loadedImage: image });
         });
@@ -232,8 +232,8 @@ const drawElement = (_renderObject, _index, _layersLen) => {
 };
 
 const constructLayerToDna = (_dna = "", _layers = []) => {
-  console.log("_dna: ",_dna)
-  console.log("_layers: ",_layers) // i am so close bro
+  //console.log("_dna: ",_dna)
+  //console.log("_layers: ",_layers) // i am so close bro
   let mappedDnaToLayers = _layers.map((layer, index) => {
     let selectedElement = layer.elements.find(
       (e) => e.id == cleanDna(_dna.split(DNA_DELIMITER)[index])
@@ -290,7 +290,7 @@ const removeQueryStrings = (_dna) => {
 };
 
 const isDnaUnique = (_DnaList = new Set(), _dna = "") => {
-  console.log("isDNAunique: ",_dna)
+  // console.log("isDNAunique: ",_dna)
   const _filteredDNA = filterDNAOptions(_dna);
   return !_DnaList.has(_filteredDNA);
 };
@@ -302,16 +302,17 @@ const createDna = (_layers) => {
   let skinType;
   let clothType;
   let clothDesign;
+  let ringCompatible;
   _layers.forEach((layer) => { // for everyone of these {id:0,elements:[...{id:0,name:"whitehand",filename:whitehand.png,path:`layers/layerName/whiteband.png,weight:40`}],name:background,blend:"source-over",bypassDna:false}
     var totalWeight = 0;
-    console.log(layer.name)
+    // console.log(layer.name)
     layer.elements.forEach((element) => {
       totalWeight += element.weight;
     });// for every layer's element it adds its rarity. so if we have 10 elements with 40 rarity each, totalWeight = 400
     // number between 0 - totalWeight
     let random = Math.floor(Math.random() * totalWeight); // something between (0,400) ig
     let randomPlaceHolder = random;
-    console.log('layer elements length: ',layer.elements.length)
+    // console.log('layer elements length: ',layer.elements.length)
     for (var i = 0; i < layer.elements.length; i++) {
       // subtract the current weight from the random weight until we reach a sub zero value.
       random -= layer.elements[i].weight; // random 
@@ -320,8 +321,6 @@ const createDna = (_layers) => {
         if(coinflip == 0){
           console.log("ZERRRRR",coinflip)
           if(layer.name=="Background"){
-            console.log("backgroundddddddddddddddddddddddd: ",layer.elements[i].filename)
-            console.log("layer name is background ")
               return randNum.push(
               `${layer.elements[i].id}:${layer.elements[i].filename}${
                 layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -330,10 +329,10 @@ const createDna = (_layers) => {
           } // arms are going to define the layer Type
           else if(layer.name=="hands"){
             let handType = layer.elements[i].filename.split("_")[0].trim();
-            console.log("handType: ",handType)
+            ringCompatible = !layer.elements[i].filename.split("_")[1].trim().includes("Lancet");
+
 
             skinType = handType
-            console.log("handType is now skinType")
             return randNum.push(
               `${layer.elements[i].id}:${layer.elements[i].filename}${
                 layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -343,18 +342,14 @@ const createDna = (_layers) => {
           }
           else if(layer.name=="arms"){
               if(skinType==layer.elements[i].filename.split("_")[0].trim() || layer.elements[i].filename.split("_")[0].trim()=="None"){
-                console.log("MATCHED !!!!!!! \n")
                 clothType = layer.elements[i].filename.split("_")[1]
                 clothDesign = layer.elements[i].filename.split("_")[2].split("#")[0]
-                console.log("clothDesign: ",clothDesign, " \n" )
                 return randNum.push(
                   `${layer.elements[i].id}:${layer.elements[i].filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
                   }`
                 );
               }else{
-                console.log("random: : : ",random)
-                console.log("NO MATCH IN COLOR in ARMS: skinType is: ",skinType," while layerType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
                 i=-1;
                 random = Math.floor(Math.random() * totalWeight);
               }
@@ -368,37 +363,29 @@ const createDna = (_layers) => {
                 );
             }
             if(skinType==layer.elements[i].filename.split("_")[0].trim()){
-              console.log("MATCHED !!!!!!! \n")
               return randNum.push(
                   `${layer.elements[i].id}:${layer.elements[i].filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
                   }`
                 );
             }else{
-                console.log("random: : : ",random)
-                console.log("NO MATCH IN COLOR IN LEGS: skinType is: ",skinType," while legType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
                 random = Math.floor(Math.random() * totalWeight);
                 i=-1;
             }
           }
           else if(layer.name=="body"){
-            console.log("layer.elements[i].filename: ",layer.elements[i].filename)
 
               // clothtypes=[Gown,InvertedCross,FireShirt,Skeleton,Black]
 
               if(clothDesign == "Xray"){
                 // let properElements = layer.element
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
                 // let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log("XRAY:::::: ",realProperElements)
                 // let result = properElements[Math.floor(Math.random()*properElements.length)]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -406,16 +393,12 @@ const createDna = (_layers) => {
               }
               else if(clothDesign == "AlienDrip"){
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
 
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log(realProperElements)
                 // let result = properElements[Math.floor(Math.random()*properElements.length)]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -423,15 +406,11 @@ const createDna = (_layers) => {
               }
               else if(clothDesign == "InverseCross"){
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log(realProperElements)
                 // let result = properElements[Math.floor(Math.random()*properElements.length)]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -439,14 +418,11 @@ const createDna = (_layers) => {
               }
               else if(clothDesign == "Suppreme"){
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
                 layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -455,14 +431,11 @@ const createDna = (_layers) => {
 
               else if(clothDesign == "Sad"){
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
                 layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -471,14 +444,11 @@ const createDna = (_layers) => {
 
               else if(clothDesign == "Fire"){
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
                 layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -489,7 +459,6 @@ const createDna = (_layers) => {
                 if(clothType=="Sweat"){
                   let properElements = layer.elements.filter(element => element.filename.split("_")[1].trim() == clothType)     
                   let result = properElements[Math.floor(Math.random()*properElements.length)]
-                  console.log("result: ",result)
                   return randNum.push(
                   `${result.id}:${result.filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -497,21 +466,15 @@ const createDna = (_layers) => {
 
                 }
                 if(layer.elements[i].filename.split("_")[0].trim() == skinType ){
-                  console.log("layer.elements[i].filename.split('_')[0].trim(): ", layer.elements[i].filename.split("_")[0].trim()," ||| skinType: ", skinType, " |||| layer.elements[i].filename.split('_')[1].trim(): ", layer.elements[i].filename.split("_")[1].trim()," ||| clothType: ",clothType)
                   return randNum.push(
                   `${layer.elements[i].id}:${layer.elements[i].filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
                   }`
                   ); 
                 }else{
-                  console.log("random: : : ",random)
-                  console.log("NO MATCH IN COLOR IN BODY skinType: skinType is: ",skinType," while our skinType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
-                  console.log("NO MATCH IN COLOR IN BODY clothType: clothType is: ",clothType," while our clothType is : ",layer.elements[i].filename.split("_")[1].trim(), "proof: ",clothType==layer.elements[i].filename.split("_")[1].trim())
                   let properElements = layer.elements.filter(element => (element.filename.split("_")[0].trim() == skinType && element.filename.split("_")[1].trim() == clothType))
-                  console.log("properElements: ",properElements)
                   if(properElements.length == 1) {
                     let result = properElements[0];
-                    console.log("result: ",result)
                     return randNum.push(
                   `${result.id}:${result.filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -520,55 +483,18 @@ const createDna = (_layers) => {
                     console.log("properElements is empty, properElements: ",properElements," clothTypeSearching: ",clothType)
                   }else{
                     let result = properElements[Math.floor(Math.random()*properElements.length)]
-                    console.log("result: ",result)
                       return randNum.push(
                   `${result.id}:${result.filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
                   }`)
-                  // console.log("proper elements: ",properElements,"element.filename.split(_)[0].trim(): ",element.filename.split("_")[0].trim()," skinType: ",skinType," element.filename.split(_)[1].trim(): ",element.filename.split("_")[1].trim()," clothType: ",clothType," proof: ", (element.filename.split("_")[0].trim() == skinType && element.filename.split("_")[1].trim() == clothType))
                   }
                   random = Math.floor(Math.random() * totalWeight);
                   i=-1;
                 }  
-                // return randNum.push(
-                //   `${layer.elements[i].id}:${layer.elements[i].filename}${
-                //     layer.bypassDNA ? "?bypassDNA=true" : ""
-                //   }`)
               }else{
-                  console.log("random: : : ",random)
-                  console.log("NO MATCH IN COLOR IN BODY clothType: clothType is: ",clothType," while our clothtype is : ",layer.elements[i].filename.split("_")[1].trim(), "proof: ",clothType==layer.elements[i].filename.split("_")[1].trim())
                   random = Math.floor(Math.random() * totalWeight);
                   i=-1;
               }
-
-            // if(layer.elements[i].filename.split("_")[0].trim() == skinType){
-            //   console.log("MATCHED WITH COLOUR !!!!!!! \n")
-
-            //   if(!clothType){
-            //       return randNum.push(
-            //       `${layer.elements[i].id}:${layer.elements[i].filename}${
-            //         layer.bypassDNA ? "?bypassDNA=true" : ""
-            //       }`
-            //     );
-            //   }
-            //   if(layer.elements[i].filename.split("_")[1].trim() == clothType){
-            //       return randNum.push(
-            //       `${layer.elements[i].id}:${layer.elements[i].filename}${
-            //         layer.bypassDNA ? "?bypassDNA=true" : ""
-            //       }`
-            //     );
-            //   }else{
-            //       console.log("random: : : ",random)
-            //       console.log("NO MATCH IN COLOR IN BODY clothType: clothType is: ",clothType," while our clothtype is : ",layer.elements[i].filename.split("_")[1].trim(), "proof: ",clothType==layer.elements[i].filename.split("_")[1].trim())
-            //       random = Math.floor(Math.random() * totalWeight);
-            //       i=-1;
-            //   }
-            // }else{
-            //     console.log("random: : : ",random)
-            //     console.log("NO MATCH IN COLOR IN body: skinType is: ",skinType," while bodyType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
-            //     random = Math.floor(Math.random() * totalWeight);
-            //     i=-1;
-            // }
           }
           else if(layer.name=="face"){
             return randNum.push(
@@ -586,20 +512,17 @@ const createDna = (_layers) => {
           }
           else if (layer.name=="heading"){
             if(layer.elements[i].filename == "bald#10.png"){
-              console.log('bald heading bitch',layer.elements[i].filename," proof: ",layer.elements[i].filename == "bald#10.png")
               random = Math.floor(Math.random() * totalWeight);
               i=-1;
 
             }else{
               if(layer.elements[i].filename.split("_")[0].trim() == skinType){
-                console.log("elelelelelele")
                 return randNum.push(
                     `${layer.elements[i].id}:${layer.elements[i].filename}${
                       layer.bypassDNA ? "?bypassDNA=true" : ""
                     }`
                   );
               }else{
-                console.log('bald heading not fitting color')
                 random = Math.floor(Math.random() * totalWeight);
                 i=-1;
               }
@@ -614,7 +537,6 @@ const createDna = (_layers) => {
           }
           else if(layer.name=="eyes"){
             if(layer.elements[i].filename == "bald#10.png"){
-              console.log('bald eye bitch',layer.elements[i].filename," proof: ",layer.elements[i].filename == "bald#10.png")
               random = Math.floor(Math.random() * totalWeight);
               i=-1;
 
@@ -628,7 +550,6 @@ const createDna = (_layers) => {
           }
           else if(layer.name=="midface"){
             if(layer.elements[i].filename == "bald#10.png"){
-              console.log('bald eye bitch',layer.elements[i].filename," proof: ",layer.elements[i].filename == "bald#10.png")
               random = Math.floor(Math.random() * totalWeight);
               i=-1;
 
@@ -642,7 +563,6 @@ const createDna = (_layers) => {
           }
           else if(layer.name=="mouth"){
             if(layer.elements[i].filename == "bald#10.png"){
-              console.log('bald eye bitch',layer.elements[i].filename," proof: ",layer.elements[i].filename == "bald#10.png")
               random = Math.floor(Math.random() * totalWeight);
               i=-1;
 
@@ -662,8 +582,6 @@ const createDna = (_layers) => {
                   }`
                 );
             }else{
-                console.log("random: : : ",random)
-                console.log("NO MATCH IN COLOR IN ears: skinType is: ",skinType," while face is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
                 random = Math.floor(Math.random() * totalWeight);
                 i=-1;
             }
@@ -683,7 +601,6 @@ const createDna = (_layers) => {
               );
           }
           else if(layer.name=="lizardEarrings"){
-            console.log("lizardEarrings elements: ",layer)
             return randNum.push(
                   `0:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -691,7 +608,6 @@ const createDna = (_layers) => {
                 );
           }
           else if(layer.name=="lizardEyes"){
-            console.log("lizardEyes elements: ",layer)
             return randNum.push(
                   `2:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -699,7 +615,6 @@ const createDna = (_layers) => {
                 );
            }
            else if(layer.name=="lizardFace"){
-            console.log("lizardFace elements: ",layer)
           return randNum.push(
                   `3:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -707,7 +622,6 @@ const createDna = (_layers) => {
                 );
            }
            else if(layer.name=="lizardHorns"){
-            console.log("lizardHorns elements: ",layer)
           return randNum.push(
                   `0:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -715,16 +629,28 @@ const createDna = (_layers) => {
                 );
            }
            else if(layer.name=="lizardMidface"){
-            console.log("lizardMidface elements: ",layer)
           return randNum.push(
                   `0:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
                   }`
                 );
            }
-           else if(layer.name=="lizardEarrings"){
-
-          }
+           else if(layer.name=="rings"){
+            if(ringCompatible){
+              return randNum.push(
+                  `${layer.elements[i].id}:${layer.elements[i].filename}${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+            }else{
+              console.log("not compatible")
+              return randNum.push(
+                  `0:bald#10.png${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+            }
+           }
         }else if(coinflip==1){
           console.log("onnnnnnnnn ::::::::: ",coinflip)
           if(layer.name=="Background"){
@@ -738,10 +664,10 @@ const createDna = (_layers) => {
           } // arms are going to define the layer Type
           else if(layer.name=="hands"){
             let handType = layer.elements[i].filename.split("_")[0].trim();
-            console.log("handType: ",handType)
+            ringCompatible = !layer.elements[i].filename.split("_")[1].trim().includes("Lancet");
+
 
             skinType = handType
-            console.log("handType is now skinType")
             return randNum.push(
               `${layer.elements[i].id}:${layer.elements[i].filename}${
                 layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -751,18 +677,14 @@ const createDna = (_layers) => {
           }
           else if(layer.name=="arms"){
               if(skinType==layer.elements[i].filename.split("_")[0].trim() || layer.elements[i].filename.split("_")[0].trim()=="None"){
-                console.log("MATCHED !!!!!!! \n")
                 clothType = layer.elements[i].filename.split("_")[1]
                 clothDesign = layer.elements[i].filename.split("_")[2].split("#")[0]
-                console.log("clothDesign: ",clothDesign, " \n" )
                 return randNum.push(
                   `${layer.elements[i].id}:${layer.elements[i].filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
                   }`
                 );
               }else{
-                console.log("random: : : ",random)
-                console.log("NO MATCH IN COLOR in ARMS: skinType is: ",skinType," while layerType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
                 i=-1;
                 random = Math.floor(Math.random() * totalWeight);
               }
@@ -776,37 +698,29 @@ const createDna = (_layers) => {
                 );
             }
             if(skinType==layer.elements[i].filename.split("_")[0].trim()){
-              console.log("MATCHED !!!!!!! \n")
               return randNum.push(
                   `${layer.elements[i].id}:${layer.elements[i].filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
                   }`
                 );
             }else{
-                console.log("random: : : ",random)
-                console.log("NO MATCH IN COLOR IN LEGS: skinType is: ",skinType," while legType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
                 random = Math.floor(Math.random() * totalWeight);
                 i=-1;
             }
           }
           else if(layer.name=="body"){
-            console.log("layer.elements[i].filename: ",layer.elements[i].filename)
 
               // clothtypes=[Gown,InvertedCross,FireShirt,Skeleton,Black]
 
               if(clothDesign == "Xray"){
                 // let properElements = layer.element
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
                 // let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log("XRAY:::::: ",realProperElements)
                 // let result = properElements[Math.floor(Math.random()*properElements.length)]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -814,16 +728,12 @@ const createDna = (_layers) => {
               }
               else if(clothDesign == "AlienDrip"){
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
 
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log(realProperElements)
                 // let result = properElements[Math.floor(Math.random()*properElements.length)]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -831,15 +741,11 @@ const createDna = (_layers) => {
               }
               else if(clothDesign == "InverseCross"){
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log(realProperElements)
                 // let result = properElements[Math.floor(Math.random()*properElements.length)]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -847,14 +753,11 @@ const createDna = (_layers) => {
               }
               else if(clothDesign == "Suppreme"){
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
                 layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -863,14 +766,11 @@ const createDna = (_layers) => {
 
               else if(clothDesign == "Sad"){
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
                 layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -879,14 +779,11 @@ const createDna = (_layers) => {
 
               else if(clothDesign == "Fire"){
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
                 layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -897,7 +794,6 @@ const createDna = (_layers) => {
                 if(clothType=="Sweat"){
                   let properElements = layer.elements.filter(element => element.filename.split("_")[1].trim() == clothType)     
                   let result = properElements[Math.floor(Math.random()*properElements.length)]
-                  console.log("result: ",result)
                   return randNum.push(
                   `${result.id}:${result.filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -905,21 +801,15 @@ const createDna = (_layers) => {
 
                 }
                 if(layer.elements[i].filename.split("_")[0].trim() == skinType ){
-                  console.log("layer.elements[i].filename.split('_')[0].trim(): ", layer.elements[i].filename.split("_")[0].trim()," ||| skinType: ", skinType, " |||| layer.elements[i].filename.split('_')[1].trim(): ", layer.elements[i].filename.split("_")[1].trim()," ||| clothType: ",clothType)
                   return randNum.push(
                   `${layer.elements[i].id}:${layer.elements[i].filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
                   }`
                   ); 
                 }else{
-                  console.log("random: : : ",random)
-                  console.log("NO MATCH IN COLOR IN BODY skinType: skinType is: ",skinType," while our skinType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
-                  console.log("NO MATCH IN COLOR IN BODY clothType: clothType is: ",clothType," while our clothType is : ",layer.elements[i].filename.split("_")[1].trim(), "proof: ",clothType==layer.elements[i].filename.split("_")[1].trim())
                   let properElements = layer.elements.filter(element => (element.filename.split("_")[0].trim() == skinType && element.filename.split("_")[1].trim() == clothType))
-                  console.log("properElements: ",properElements)
                   if(properElements.length == 1) {
                     let result = properElements[0];
-                    console.log("result: ",result)
                     return randNum.push(
                   `${result.id}:${result.filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -928,7 +818,6 @@ const createDna = (_layers) => {
                     console.log("properElements is empty, properElements: ",properElements," clothTypeSearching: ",clothType)
                   }else{
                     let result = properElements[Math.floor(Math.random()*properElements.length)]
-                    console.log("result: ",result)
                       return randNum.push(
                   `${result.id}:${result.filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -943,8 +832,6 @@ const createDna = (_layers) => {
                 //     layer.bypassDNA ? "?bypassDNA=true" : ""
                 //   }`)
               }else{
-                  console.log("random: : : ",random)
-                  console.log("NO MATCH IN COLOR IN BODY clothType: clothType is: ",clothType," while our clothtype is : ",layer.elements[i].filename.split("_")[1].trim(), "proof: ",clothType==layer.elements[i].filename.split("_")[1].trim())
                   random = Math.floor(Math.random() * totalWeight);
                   i=-1;
               }
@@ -966,13 +853,10 @@ const createDna = (_layers) => {
             //       }`
             //     );
             //   }else{
-            //       console.log("random: : : ",random)
-            //       console.log("NO MATCH IN COLOR IN BODY clothType: clothType is: ",clothType," while our clothtype is : ",layer.elements[i].filename.split("_")[1].trim(), "proof: ",clothType==layer.elements[i].filename.split("_")[1].trim())
             //       random = Math.floor(Math.random() * totalWeight);
             //       i=-1;
             //   }
             // }else{
-            //     console.log("random: : : ",random)
             //     console.log("NO MATCH IN COLOR IN body: skinType is: ",skinType," while bodyType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
             //     random = Math.floor(Math.random() * totalWeight);
             //     i=-1;
@@ -1063,7 +947,6 @@ const createDna = (_layers) => {
               );
           }
           else if(layer.name=="lizardEarrings"){
-            console.log("lizardEarrings elements: ",layer)
             return randNum.push(
                   `0:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1071,7 +954,6 @@ const createDna = (_layers) => {
                 );
           }
           else if(layer.name=="lizardEyes"){
-            console.log("lizardEyes elements: ",layer)
             return randNum.push(
                   `2:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1079,7 +961,6 @@ const createDna = (_layers) => {
                 );
            }
            else if(layer.name=="lizardFace"){
-            console.log("lizardFace elements: ",layer)
           return randNum.push(
                   `3:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1087,7 +968,6 @@ const createDna = (_layers) => {
                 );
            }
            else if(layer.name=="lizardHorns"){
-            console.log("lizardHorns elements: ",layer)
           return randNum.push(
                   `0:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1095,12 +975,27 @@ const createDna = (_layers) => {
                 );
            }
            else if(layer.name=="lizardMidface"){
-            console.log("lizardMidface elements: ",layer)
           return randNum.push(
                   `0:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
                   }`
                 );
+           }
+           else if(layer.name=="rings"){
+            if(ringCompatible){
+              return randNum.push(
+                  `${layer.elements[i].id}:${layer.elements[i].filename}${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+            }else{
+              console.log("not compatible")
+              return randNum.push(
+                  `0:bald#10.png${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+            }
            }
         }else{
           console.log("TWWWWWWWWWWWWWWW: ", coinflip);
@@ -1122,16 +1017,11 @@ const createDna = (_layers) => {
           } // arms are going to define the layer Type
           else if(layer.name=="hands"){
             let handType = layer.elements[i].filename.split("_")[0].trim();
-            console.log("handType: ",handType)
+            ringCompatible = !layer.elements[i].filename.split("_")[1].trim().includes("Lancet");
             
             if(handType == "Red" || handType == "Blue" || handType == "White"){
               skinType = handType
-              console.log("handType is now skinType")
             }
-            // else if(handType =="InvertedCross" || handType=="Black" || handType=="FireShirt" || handType =="Gown" || handType=="Skeleton"){
-            //   clothType = handType;
-            //   console.log("handType is now clothType")
-            // }
             return randNum.push(
               `${layer.elements[i].id}:${layer.elements[i].filename}${
                 layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1140,18 +1030,14 @@ const createDna = (_layers) => {
           }
           else if(layer.name=="arms"){
               if(skinType==layer.elements[i].filename.split("_")[0].trim() || layer.elements[i].filename.split("_")[0].trim()=="None"){
-                console.log("MATCHED !!!!!!! \n")
                 clothType = layer.elements[i].filename.split("_")[1]
                 clothDesign = layer.elements[i].filename.split("_")[2].split("#")[0]
-                console.log("clothDesign: ",clothDesign, " \n" )
                 return randNum.push(
                   `${layer.elements[i].id}:${layer.elements[i].filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
                   }`
                 );
               }else{
-                console.log("random: : : ",random)
-                console.log("NO MATCH IN COLOR in ARMS: skinType is: ",skinType," while layerType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
                 i=-1;
                 random = Math.floor(Math.random() * totalWeight);
               }
@@ -1165,37 +1051,29 @@ const createDna = (_layers) => {
                 );
             }
             if(skinType==layer.elements[i].filename.split("_")[0].trim()){
-              console.log("MATCHED !!!!!!! \n")
               return randNum.push(
                   `${layer.elements[i].id}:${layer.elements[i].filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
                   }`
                 );
             }else{
-                console.log("random: : : ",random)
-                console.log("NO MATCH IN COLOR IN LEGS: skinType is: ",skinType," while legType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
                 random = Math.floor(Math.random() * totalWeight);
                 i=-1;
             }
           }
           else if(layer.name=="body"){
-            console.log("layer.elements[i].filename: ",layer.elements[i].filename)
 
               // clothtypes=[Gown,InvertedCross,FireShirt,Skeleton,Black]
 
               if(clothDesign == "Xray"){
                 // let properElements = layer.element
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
                 // let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log("XRAY:::::: ",realProperElements)
                 // let result = properElements[Math.floor(Math.random()*properElements.length)]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1203,16 +1081,12 @@ const createDna = (_layers) => {
               }
               else if(clothDesign == "AlienDrip"){
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
 
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log(realProperElements)
                 // let result = properElements[Math.floor(Math.random()*properElements.length)]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1220,15 +1094,11 @@ const createDna = (_layers) => {
               }
               else if(clothDesign == "InverseCross"){
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log(realProperElements)
                 // let result = properElements[Math.floor(Math.random()*properElements.length)]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1236,14 +1106,11 @@ const createDna = (_layers) => {
               }
               else if(clothDesign == "Suppreme"){
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
                 layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1252,14 +1119,11 @@ const createDna = (_layers) => {
 
               else if(clothDesign == "Sad"){
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
                 layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1268,14 +1132,11 @@ const createDna = (_layers) => {
 
               else if(clothDesign == "Fire"){
                 layer.elements.filter(element=>{
-                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-                  console.log("clothDesign: ",clothDesign)
                 })
                 layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
                 let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
                 let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
                 let result = realProperElements[0]
-                console.log("result: ",result)
                 return randNum.push(
                 `${result.id}:${result.filename}${
                   layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1286,7 +1147,6 @@ const createDna = (_layers) => {
                 if(clothType=="Sweat"){
                   let properElements = layer.elements.filter(element => element.filename.split("_")[1].trim() == clothType)     
                   let result = properElements[Math.floor(Math.random()*properElements.length)]
-                  console.log("result: ",result)
                   return randNum.push(
                   `${result.id}:${result.filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1294,21 +1154,15 @@ const createDna = (_layers) => {
 
                 }
                 if(layer.elements[i].filename.split("_")[0].trim() == skinType ){
-                  console.log("layer.elements[i].filename.split('_')[0].trim(): ", layer.elements[i].filename.split("_")[0].trim()," ||| skinType: ", skinType, " |||| layer.elements[i].filename.split('_')[1].trim(): ", layer.elements[i].filename.split("_")[1].trim()," ||| clothType: ",clothType)
                   return randNum.push(
                   `${layer.elements[i].id}:${layer.elements[i].filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
                   }`
                   ); 
                 }else{
-                  console.log("random: : : ",random)
-                  console.log("NO MATCH IN COLOR IN BODY skinType: skinType is: ",skinType," while our skinType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
-                  console.log("NO MATCH IN COLOR IN BODY clothType: clothType is: ",clothType," while our clothType is : ",layer.elements[i].filename.split("_")[1].trim(), "proof: ",clothType==layer.elements[i].filename.split("_")[1].trim())
                   let properElements = layer.elements.filter(element => (element.filename.split("_")[0].trim() == skinType && element.filename.split("_")[1].trim() == clothType))
-                  console.log("properElements: ",properElements)
                   if(properElements.length == 1) {
                     let result = properElements[0];
-                    console.log("result: ",result)
                     return randNum.push(
                   `${result.id}:${result.filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1317,7 +1171,6 @@ const createDna = (_layers) => {
                     console.log("properElements is empty, properElements: ",properElements," clothTypeSearching: ",clothType)
                   }else{
                     let result = properElements[Math.floor(Math.random()*properElements.length)]
-                    console.log("result: ",result)
                       return randNum.push(
                   `${result.id}:${result.filename}${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1332,8 +1185,6 @@ const createDna = (_layers) => {
                 //     layer.bypassDNA ? "?bypassDNA=true" : ""
                 //   }`)
               }else{
-                  console.log("random: : : ",random)
-                  console.log("NO MATCH IN COLOR IN BODY clothType: clothType is: ",clothType," while our clothtype is : ",layer.elements[i].filename.split("_")[1].trim(), "proof: ",clothType==layer.elements[i].filename.split("_")[1].trim())
                   random = Math.floor(Math.random() * totalWeight);
                   i=-1;
               }
@@ -1354,7 +1205,7 @@ const createDna = (_layers) => {
                 );
           }
           else if(layer.name=="heading"){
-            console.log("HEADING::: ",layer.elements)
+            // console.log("HEADING::: ",layer.elements)
                 return randNum.push(
                   `3:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1362,7 +1213,7 @@ const createDna = (_layers) => {
                 );
           }
           else if(layer.name=="hair"){
-            console.log("second leg HHair:::",layer.elements)
+            // console.log("second leg HHair:::",layer.elements)
               return randNum.push(
                   `0:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1370,7 +1221,7 @@ const createDna = (_layers) => {
                 );
           }
           else if(layer.name=="eyes"){
-            console.log("second leg EEyes:::",layer.elements)
+            // console.log("second leg EEyes:::",layer.elements)
               return randNum.push(
                   `0:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1378,7 +1229,7 @@ const createDna = (_layers) => {
                 );
           }
           else if(layer.name=="midface"){
-            console.log("second leg mmidface:::",layer.elements)
+            // console.log("second leg mmidface:::",layer.elements)
               return randNum.push(
                   `1:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1386,7 +1237,7 @@ const createDna = (_layers) => {
                 );
           }
           else if(layer.name=="mouth"){
-            console.log("second leg mmouth:::",layer.elements)
+            // console.log("second leg mmouth:::",layer.elements)
               return randNum.push(
                   `0:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1394,7 +1245,7 @@ const createDna = (_layers) => {
                 );
           }
           else if(layer.name=="ears"){
-            console.log("second leg eears:::",layer.elements)
+            // console.log("second leg eears:::",layer.elements)
               return randNum.push(
                   `8:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1402,7 +1253,7 @@ const createDna = (_layers) => {
                 );
           }
           else if(layer.name=="horns"){
-            console.log("second leg hhrons:::",layer.elements)
+            // console.log("second leg hhrons:::",layer.elements)
               return randNum.push(
                   `1:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1410,7 +1261,7 @@ const createDna = (_layers) => {
                 );
           }
           else if(layer.name=="earrings"){
-            console.log("SECOND LEG earrings: ",layer.elements)
+            // console.log("SECOND LEG earrings: ",layer.elements)
               return randNum.push(
                   `0:bald#10.png${
                     layer.bypassDNA ? "?bypassDNA=true" : ""
@@ -1425,7 +1276,7 @@ const createDna = (_layers) => {
               );
           }
           else if(layer.name=="lizardEyes"){
-            console.log("lizard eyes")
+            // console.log("lizard eyes")
             if(layer.elements[i].filename == "bald#10.png"){
               console.log("found bald background")
               i=-1;
@@ -1440,7 +1291,7 @@ const createDna = (_layers) => {
             }
           }
           else if(layer.name=="lizardFace"){
-            console.log("lizard face")
+            // console.log("lizard face")
             if(layer.elements[i].filename == "bald#10.png"){
               console.log("found bald background")
               i=-1;
@@ -1474,6 +1325,22 @@ const createDna = (_layers) => {
                 }`
               );
           }
+          else if(layer.name=="rings"){
+            if(ringCompatible){
+              return randNum.push(
+                  `${layer.elements[i].id}:${layer.elements[i].filename}${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+            }else{
+              console.log("not compatible: ",layer.elements)
+              return randNum.push(
+                  `0:bald#10.png${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+            }
+           }
         }
       }
     }
@@ -1545,13 +1412,13 @@ const startCreating = async () => {
       editionCount <= layerConfigurations[layerConfigIndex].growEditionSizeTo
     ) {
       let newDna = createDna(layers); //returns a number
-      console.log("newDnaaaaaaaaaaaaaa: ",newDna)
+      // console.log("newDnaaaaaaaaaaaaaa: ",newDna)
       // layerConfigIndex++ //delete
       if (isDnaUnique(dnaList, newDna)) {
         let results = constructLayerToDna(newDna, layers); //dn uparxei selectedElement sto body object
-        console.log("eimai mikropsolis RESULTS:::: ",results)
+        // console.log("eimai mikropsolis RESULTS:::: ",results)
         let loadedElements = [];
-        console.log("eimai gkrizomalis loadedElements::: ",loadedElements)
+        // console.log("eimai gkrizomalis loadedElements::: ",loadedElements)
 
         results.forEach((layer) => {
           loadedElements.push(loadLayerImg(layer));
