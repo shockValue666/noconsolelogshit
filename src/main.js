@@ -296,8 +296,7 @@ const isDnaUnique = (_DnaList = new Set(), _dna = "") => {
 };
 
 const createDna = (_layers) => {
-  // let coinflip = Math.floor(Math.random()*3);
-  let coinflip = Math.floor(Math.random()*2);
+  let coinflip = Math.floor(Math.random()*3);
   // let coinflip = 1;
   let randNum = [];
   let skinType;
@@ -723,362 +722,11 @@ const createDna = (_layers) => {
                   }`
                 );
            }
+           else if(layer.name=="lizardEarrings"){
+
+          }
         }else if(coinflip==1){
           console.log("onnnnnnnnn ::::::::: ",coinflip)
-          // if(layer.name=="Background"){
-          //   console.log("background: ",layer.elements[i].filename)
-          //   console.log("layer name is background ")
-          //   if(layer.elements[i].filename == "bald#10.png"){
-          //     console.log("found bald background")
-          //     i=-1;
-          //     random = Math.floor(Math.random() * totalWeight);
-
-          //   }else{
-          //       return randNum.push(
-          //       `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //         layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       }`
-          //     );
-          //   }
-          // } // arms are going to define the layer Type
-          // else if(layer.name=="hands"){
-          //   let handType = layer.elements[i].filename.split("_")[0].trim();
-          //   console.log("handType: ",handType)
-            
-          //   if(handType == "Red" || handType == "Blue" || handType == "White"){
-          //     skinType = handType
-          //     console.log("handType is now skinType")
-          //   }
-          //   // else if(handType =="InvertedCross" || handType=="Black" || handType=="FireShirt" || handType =="Gown" || handType=="Skeleton"){
-          //   //   clothType = handType;
-          //   //   console.log("handType is now clothType")
-          //   // }
-          //   return randNum.push(
-          //     `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //       layer.bypassDNA ? "?bypassDNA=true" : ""
-          //     }`
-          //   );
-          // }
-          // else if(layer.name=="arms"){
-          //     if(skinType==layer.elements[i].filename.split("_")[0].trim() || layer.elements[i].filename.split("_")[0].trim()=="None"){
-          //       console.log("MATCHED !!!!!!! \n")
-          //       clothType = layer.elements[i].filename.split("_")[1]
-          //       clothDesign = layer.elements[i].filename.split("_")[2].split("#")[0]
-          //       console.log("clothDesign: ",clothDesign, " \n" )
-          //       return randNum.push(
-          //         `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          //     }else{
-          //       console.log("random: : : ",random)
-          //       console.log("NO MATCH IN COLOR in ARMS: skinType is: ",skinType," while layerType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
-          //       i=-1;
-          //       random = Math.floor(Math.random() * totalWeight);
-          //     }
-          // }//we don't care about the background
-          // else if(layer.name=="legs"){
-          //   if(!layer.elements[i].filename.split("_")[1]){
-          //       return randNum.push(
-          //         `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          //   }
-          //   if(skinType==layer.elements[i].filename.split("_")[0].trim()){
-          //     console.log("MATCHED !!!!!!! \n")
-          //     return randNum.push(
-          //         `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          //   }else{
-          //       console.log("random: : : ",random)
-          //       console.log("NO MATCH IN COLOR IN LEGS: skinType is: ",skinType," while legType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
-          //       random = Math.floor(Math.random() * totalWeight);
-          //       i=-1;
-          //   }
-          // }
-          // else if(layer.name=="body"){
-          //   console.log("layer.elements[i].filename: ",layer.elements[i].filename)
-
-          //     // clothtypes=[Gown,InvertedCross,FireShirt,Skeleton,Black]
-
-          //     if(clothDesign == "Xray"){
-          //       // let properElements = layer.element
-          //       layer.elements.filter(element=>{
-          //         console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-          //         console.log("clothDesign: ",clothDesign)
-          //       })
-          //       // let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
-          //       let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
-          //       let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
-          //       let result = realProperElements[0]
-          //       console.log("XRAY:::::: ",realProperElements)
-          //       // let result = properElements[Math.floor(Math.random()*properElements.length)]
-          //       console.log("result: ",result)
-          //       return randNum.push(
-          //       `${result.id}:${result.filename}${
-          //         layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       }`)
-          //     }
-          //     else if(clothDesign == "AlienDrip"){
-          //       layer.elements.filter(element=>{
-          //         console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-          //         console.log("clothDesign: ",clothDesign)
-          //       })
-
-          //       let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
-          //       let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
-          //       let result = realProperElements[0]
-          //       console.log(realProperElements)
-          //       // let result = properElements[Math.floor(Math.random()*properElements.length)]
-          //       console.log("result: ",result)
-          //       return randNum.push(
-          //       `${result.id}:${result.filename}${
-          //         layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       }`)
-          //     }
-          //     else if(clothDesign == "InverseCross"){
-          //       layer.elements.filter(element=>{
-          //         console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-          //         console.log("clothDesign: ",clothDesign)
-          //       })
-          //       let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
-          //       let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
-          //       let result = realProperElements[0]
-          //       console.log(realProperElements)
-          //       // let result = properElements[Math.floor(Math.random()*properElements.length)]
-          //       console.log("result: ",result)
-          //       return randNum.push(
-          //       `${result.id}:${result.filename}${
-          //         layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       }`)
-          //     }
-          //     else if(clothDesign == "Suppreme"){
-          //       layer.elements.filter(element=>{
-          //         console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-          //         console.log("clothDesign: ",clothDesign)
-          //       })
-          //       layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
-          //       let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
-          //       let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
-          //       let result = realProperElements[0]
-          //       console.log("result: ",result)
-          //       return randNum.push(
-          //       `${result.id}:${result.filename}${
-          //         layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       }`)
-          //     }
-
-          //     else if(clothDesign == "Sad"){
-          //       layer.elements.filter(element=>{
-          //         console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-          //         console.log("clothDesign: ",clothDesign)
-          //       })
-          //       layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
-          //       let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
-          //       let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
-          //       let result = realProperElements[0]
-          //       console.log("result: ",result)
-          //       return randNum.push(
-          //       `${result.id}:${result.filename}${
-          //         layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       }`)
-          //     }
-
-          //     else if(clothDesign == "Fire"){
-          //       layer.elements.filter(element=>{
-          //         console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-          //         console.log("clothDesign: ",clothDesign)
-          //       })
-          //       layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
-          //       let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
-          //       let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
-          //       let result = realProperElements[0]
-          //       console.log("result: ",result)
-          //       return randNum.push(
-          //       `${result.id}:${result.filename}${
-          //         layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       }`)
-          //     }
-
-          //     if(layer.elements[i].filename.split("_")[1].trim() == clothType){
-          //       if(clothType=="Sweat"){
-          //         let properElements = layer.elements.filter(element => element.filename.split("_")[1].trim() == clothType)     
-          //         let result = properElements[Math.floor(Math.random()*properElements.length)]
-          //         console.log("result: ",result)
-          //         return randNum.push(
-          //         `${result.id}:${result.filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`)
-
-          //       }
-          //       if(layer.elements[i].filename.split("_")[0].trim() == skinType ){
-          //         console.log("layer.elements[i].filename.split('_')[0].trim(): ", layer.elements[i].filename.split("_")[0].trim()," ||| skinType: ", skinType, " |||| layer.elements[i].filename.split('_')[1].trim(): ", layer.elements[i].filename.split("_")[1].trim()," ||| clothType: ",clothType)
-          //         return randNum.push(
-          //         `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //         ); 
-          //       }else{
-          //         console.log("random: : : ",random)
-          //         console.log("NO MATCH IN COLOR IN BODY skinType: skinType is: ",skinType," while our skinType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
-          //         console.log("NO MATCH IN COLOR IN BODY clothType: clothType is: ",clothType," while our clothType is : ",layer.elements[i].filename.split("_")[1].trim(), "proof: ",clothType==layer.elements[i].filename.split("_")[1].trim())
-          //         let properElements = layer.elements.filter(element => (element.filename.split("_")[0].trim() == skinType && element.filename.split("_")[1].trim() == clothType))
-          //         console.log("properElements: ",properElements)
-          //         if(properElements.length == 1) {
-          //           let result = properElements[0];
-          //           console.log("result: ",result)
-          //           return randNum.push(
-          //         `${result.id}:${result.filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`)
-          //         }else if(properElements.length==0){
-          //           console.log("properElements is empty, properElements: ",properElements," clothTypeSearching: ",clothType)
-          //         }else{
-          //           let result = properElements[Math.floor(Math.random()*properElements.length)]
-          //           console.log("result: ",result)
-          //             return randNum.push(
-          //         `${result.id}:${result.filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`)
-          //         // console.log("proper elements: ",properElements,"element.filename.split(_)[0].trim(): ",element.filename.split("_")[0].trim()," skinType: ",skinType," element.filename.split(_)[1].trim(): ",element.filename.split("_")[1].trim()," clothType: ",clothType," proof: ", (element.filename.split("_")[0].trim() == skinType && element.filename.split("_")[1].trim() == clothType))
-          //         }
-          //         random = Math.floor(Math.random() * totalWeight);
-          //         i=-1;
-          //       }  
-          //       // return randNum.push(
-          //       //   `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //       //     layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       //   }`)
-          //     }else{
-          //         console.log("random: : : ",random)
-          //         console.log("NO MATCH IN COLOR IN BODY clothType: clothType is: ",clothType," while our clothtype is : ",layer.elements[i].filename.split("_")[1].trim(), "proof: ",clothType==layer.elements[i].filename.split("_")[1].trim())
-          //         random = Math.floor(Math.random() * totalWeight);
-          //         i=-1;
-          //     }
-
-          // }
-          // else if(layer.name=="face"){
-          //   if(layer.elements[i].filename.split("_")[0].trim() == skinType && layer.elements[i].filename !== "bald#10.png"){
-          //     return randNum.push(
-          //         `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          //   }else{
-          //       console.log("random: : : ",random)
-          //       console.log("NO MATCH IN COLOR IN face: skinType is: ",skinType," while face is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
-          //       random = Math.floor(Math.random() * totalWeight);
-          //       i=-1;
-          //   }
-          // }
-          // else if(layer.name=="head"){
-          //   return randNum.push(
-          //         `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="heading"){
-          //   console.log("HEADING::: ",layer.elements)
-          //       return randNum.push(
-          //         `3:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="hair"){
-          //     return randNum.push(
-          //         `0:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="eyes"){
-          //     return randNum.push(
-          //         `0:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="midface"){
-          //     return randNum.push(
-          //         `1:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="mouth"){
-          //     return randNum.push(
-          //         `0:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="ears"){
-          //     return randNum.push(
-          //         `8:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="horns"){
-          //     return randNum.push(
-          //         `1:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="earrings"){
-          //   console.log("SECOND LEG earrings: ",layer.elements)
-          //     return randNum.push(
-          //         `0:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="lizardEarrings"){
-          //   console.log("lizardEarrings elements: ",layer)
-          //   return randNum.push(
-          //         `0:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="lizardEyes"){
-          //   console.log("lizardEyes elements: ",layer)
-          //   return randNum.push(
-          //         `2:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          //  }
-          //  else if(layer.name=="lizardFace"){
-          //   console.log("lizardFace elements: ",layer)
-          // return randNum.push(
-          //         `3:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          //  }
-          //  else if(layer.name=="lizardHorns"){
-          //   console.log("lizardHorns elements: ",layer)
-          // return randNum.push(
-          //         `0:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          //  }
-          //  else if(layer.name=="lizardMidface"){
-          //   console.log("lizardMidface elements: ",layer)
-          // return randNum.push(
-          //         `0:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          //  }
           if(layer.name=="Background"){
             console.log("backgroundddddddddddddddddddddddd: ",layer.elements[i].filename)
             console.log("layer name is background ")
@@ -1456,327 +1104,376 @@ const createDna = (_layers) => {
            }
         }else{
           console.log("TWWWWWWWWWWWWWWW: ", coinflip);
-          // if(layer.name=="Background"){
-          //   console.log("background: ",layer.elements[i].filename)
-          //   console.log("layer name is background ")
-          //   if(layer.elements[i].filename == "bald#10.png"){
-          //     console.log("found bald background")
-          //     i=-1;
-          //     random = Math.floor(Math.random() * totalWeight);
+          if(layer.name=="Background"){
+            console.log("background: ",layer.elements[i].filename)
+            console.log("layer name is background ")
+            if(layer.elements[i].filename == "bald#10.png"){
+              console.log("found bald background")
+              i=-1;
+              random = Math.floor(Math.random() * totalWeight);
 
-          //   }else{
-          //       return randNum.push(
-          //       `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //         layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       }`
-          //     );
-          //   }
-          // } // arms are going to define the layer Type
-          // else if(layer.name=="hands"){
-          //   let handType = layer.elements[i].filename.split("_")[0].trim();
-          //   console.log("handType: ",handType)
+            }else{
+                return randNum.push(
+                `${layer.elements[i].id}:${layer.elements[i].filename}${
+                  layer.bypassDNA ? "?bypassDNA=true" : ""
+                }`
+              );
+            }
+          } // arms are going to define the layer Type
+          else if(layer.name=="hands"){
+            let handType = layer.elements[i].filename.split("_")[0].trim();
+            console.log("handType: ",handType)
             
-          //   if(handType == "Red" || handType == "Blue" || handType == "White"){
-          //     skinType = handType
-          //     console.log("handType is now skinType")
-          //   }
-          //   // else if(handType =="InvertedCross" || handType=="Black" || handType=="FireShirt" || handType =="Gown" || handType=="Skeleton"){
-          //   //   clothType = handType;
-          //   //   console.log("handType is now clothType")
-          //   // }
-          //   return randNum.push(
-          //     `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //       layer.bypassDNA ? "?bypassDNA=true" : ""
-          //     }`
-          //   );
-          // }
-          // else if(layer.name=="arms"){
-          //     if(skinType==layer.elements[i].filename.split("_")[0].trim() || layer.elements[i].filename.split("_")[0].trim()=="None"){
-          //       console.log("MATCHED !!!!!!! \n")
-          //       clothType = layer.elements[i].filename.split("_")[1]
-          //       clothDesign = layer.elements[i].filename.split("_")[2].split("#")[0]
-          //       console.log("clothDesign: ",clothDesign, " \n" )
-          //       return randNum.push(
-          //         `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          //     }else{
-          //       console.log("random: : : ",random)
-          //       console.log("NO MATCH IN COLOR in ARMS: skinType is: ",skinType," while layerType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
-          //       i=-1;
-          //       random = Math.floor(Math.random() * totalWeight);
-          //     }
-          // }//we don't care about the background
-          // else if(layer.name=="legs"){
-          //   if(!layer.elements[i].filename.split("_")[1]){
-          //       return randNum.push(
-          //         `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          //   }
-          //   if(skinType==layer.elements[i].filename.split("_")[0].trim()){
-          //     console.log("MATCHED !!!!!!! \n")
-          //     return randNum.push(
-          //         `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          //   }else{
-          //       console.log("random: : : ",random)
-          //       console.log("NO MATCH IN COLOR IN LEGS: skinType is: ",skinType," while legType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
-          //       random = Math.floor(Math.random() * totalWeight);
-          //       i=-1;
-          //   }
-          // }
-          // else if(layer.name=="body"){
-          //   console.log("layer.elements[i].filename: ",layer.elements[i].filename)
+            if(handType == "Red" || handType == "Blue" || handType == "White"){
+              skinType = handType
+              console.log("handType is now skinType")
+            }
+            // else if(handType =="InvertedCross" || handType=="Black" || handType=="FireShirt" || handType =="Gown" || handType=="Skeleton"){
+            //   clothType = handType;
+            //   console.log("handType is now clothType")
+            // }
+            return randNum.push(
+              `${layer.elements[i].id}:${layer.elements[i].filename}${
+                layer.bypassDNA ? "?bypassDNA=true" : ""
+              }`
+            );
+          }
+          else if(layer.name=="arms"){
+              if(skinType==layer.elements[i].filename.split("_")[0].trim() || layer.elements[i].filename.split("_")[0].trim()=="None"){
+                console.log("MATCHED !!!!!!! \n")
+                clothType = layer.elements[i].filename.split("_")[1]
+                clothDesign = layer.elements[i].filename.split("_")[2].split("#")[0]
+                console.log("clothDesign: ",clothDesign, " \n" )
+                return randNum.push(
+                  `${layer.elements[i].id}:${layer.elements[i].filename}${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+              }else{
+                console.log("random: : : ",random)
+                console.log("NO MATCH IN COLOR in ARMS: skinType is: ",skinType," while layerType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
+                i=-1;
+                random = Math.floor(Math.random() * totalWeight);
+              }
+          }//we don't care about the background
+          else if(layer.name=="legs"){
+            if(!layer.elements[i].filename.split("_")[1]){
+                return randNum.push(
+                  `${layer.elements[i].id}:${layer.elements[i].filename}${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+            }
+            if(skinType==layer.elements[i].filename.split("_")[0].trim()){
+              console.log("MATCHED !!!!!!! \n")
+              return randNum.push(
+                  `${layer.elements[i].id}:${layer.elements[i].filename}${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+            }else{
+                console.log("random: : : ",random)
+                console.log("NO MATCH IN COLOR IN LEGS: skinType is: ",skinType," while legType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
+                random = Math.floor(Math.random() * totalWeight);
+                i=-1;
+            }
+          }
+          else if(layer.name=="body"){
+            console.log("layer.elements[i].filename: ",layer.elements[i].filename)
 
-          //     // clothtypes=[Gown,InvertedCross,FireShirt,Skeleton,Black]
+              // clothtypes=[Gown,InvertedCross,FireShirt,Skeleton,Black]
 
-          //     if(clothDesign == "Xray"){
-          //       // let properElements = layer.element
-          //       layer.elements.filter(element=>{
-          //         console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-          //         console.log("clothDesign: ",clothDesign)
-          //       })
-          //       // let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
-          //       let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
-          //       let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
-          //       let result = realProperElements[0]
-          //       console.log("XRAY:::::: ",realProperElements)
-          //       // let result = properElements[Math.floor(Math.random()*properElements.length)]
-          //       console.log("result: ",result)
-          //       return randNum.push(
-          //       `${result.id}:${result.filename}${
-          //         layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       }`)
-          //     }
-          //     else if(clothDesign == "AlienDrip"){
-          //       layer.elements.filter(element=>{
-          //         console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-          //         console.log("clothDesign: ",clothDesign)
-          //       })
+              if(clothDesign == "Xray"){
+                // let properElements = layer.element
+                layer.elements.filter(element=>{
+                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
+                  console.log("clothDesign: ",clothDesign)
+                })
+                // let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
+                let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
+                let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
+                let result = realProperElements[0]
+                console.log("XRAY:::::: ",realProperElements)
+                // let result = properElements[Math.floor(Math.random()*properElements.length)]
+                console.log("result: ",result)
+                return randNum.push(
+                `${result.id}:${result.filename}${
+                  layer.bypassDNA ? "?bypassDNA=true" : ""
+                }`)
+              }
+              else if(clothDesign == "AlienDrip"){
+                layer.elements.filter(element=>{
+                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
+                  console.log("clothDesign: ",clothDesign)
+                })
 
-          //       let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
-          //       let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
-          //       let result = realProperElements[0]
-          //       console.log(realProperElements)
-          //       // let result = properElements[Math.floor(Math.random()*properElements.length)]
-          //       console.log("result: ",result)
-          //       return randNum.push(
-          //       `${result.id}:${result.filename}${
-          //         layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       }`)
-          //     }
-          //     else if(clothDesign == "InverseCross"){
-          //       layer.elements.filter(element=>{
-          //         console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-          //         console.log("clothDesign: ",clothDesign)
-          //       })
-          //       let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
-          //       let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
-          //       let result = realProperElements[0]
-          //       console.log(realProperElements)
-          //       // let result = properElements[Math.floor(Math.random()*properElements.length)]
-          //       console.log("result: ",result)
-          //       return randNum.push(
-          //       `${result.id}:${result.filename}${
-          //         layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       }`)
-          //     }
-          //     else if(clothDesign == "Suppreme"){
-          //       layer.elements.filter(element=>{
-          //         console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-          //         console.log("clothDesign: ",clothDesign)
-          //       })
-          //       layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
-          //       let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
-          //       let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
-          //       let result = realProperElements[0]
-          //       console.log("result: ",result)
-          //       return randNum.push(
-          //       `${result.id}:${result.filename}${
-          //         layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       }`)
-          //     }
+                let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
+                let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
+                let result = realProperElements[0]
+                console.log(realProperElements)
+                // let result = properElements[Math.floor(Math.random()*properElements.length)]
+                console.log("result: ",result)
+                return randNum.push(
+                `${result.id}:${result.filename}${
+                  layer.bypassDNA ? "?bypassDNA=true" : ""
+                }`)
+              }
+              else if(clothDesign == "InverseCross"){
+                layer.elements.filter(element=>{
+                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
+                  console.log("clothDesign: ",clothDesign)
+                })
+                let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
+                let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
+                let result = realProperElements[0]
+                console.log(realProperElements)
+                // let result = properElements[Math.floor(Math.random()*properElements.length)]
+                console.log("result: ",result)
+                return randNum.push(
+                `${result.id}:${result.filename}${
+                  layer.bypassDNA ? "?bypassDNA=true" : ""
+                }`)
+              }
+              else if(clothDesign == "Suppreme"){
+                layer.elements.filter(element=>{
+                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
+                  console.log("clothDesign: ",clothDesign)
+                })
+                layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
+                let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
+                let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
+                let result = realProperElements[0]
+                console.log("result: ",result)
+                return randNum.push(
+                `${result.id}:${result.filename}${
+                  layer.bypassDNA ? "?bypassDNA=true" : ""
+                }`)
+              }
 
-          //     else if(clothDesign == "Sad"){
-          //       layer.elements.filter(element=>{
-          //         console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-          //         console.log("clothDesign: ",clothDesign)
-          //       })
-          //       layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
-          //       let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
-          //       let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
-          //       let result = realProperElements[0]
-          //       console.log("result: ",result)
-          //       return randNum.push(
-          //       `${result.id}:${result.filename}${
-          //         layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       }`)
-          //     }
+              else if(clothDesign == "Sad"){
+                layer.elements.filter(element=>{
+                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
+                  console.log("clothDesign: ",clothDesign)
+                })
+                layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
+                let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
+                let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
+                let result = realProperElements[0]
+                console.log("result: ",result)
+                return randNum.push(
+                `${result.id}:${result.filename}${
+                  layer.bypassDNA ? "?bypassDNA=true" : ""
+                }`)
+              }
 
-          //     else if(clothDesign == "Fire"){
-          //       layer.elements.filter(element=>{
-          //         console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
-          //         console.log("clothDesign: ",clothDesign)
-          //       })
-          //       layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
-          //       let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
-          //       let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
-          //       let result = realProperElements[0]
-          //       console.log("result: ",result)
-          //       return randNum.push(
-          //       `${result.id}:${result.filename}${
-          //         layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       }`)
-          //     }
+              else if(clothDesign == "Fire"){
+                layer.elements.filter(element=>{
+                  console.log("element.filename.split(_)[2].split(#)[0].trim(): ",element.filename.split("_")[2].split("#")[0].trim())
+                  console.log("clothDesign: ",clothDesign)
+                })
+                layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim())
+                let properElements = layer.elements.filter(element => element.filename.split("_")[2].split("#")[0].trim() == clothDesign)
+                let realProperElements = properElements.filter(element => element.name.split("_")[0].trim() == skinType)
+                let result = realProperElements[0]
+                console.log("result: ",result)
+                return randNum.push(
+                `${result.id}:${result.filename}${
+                  layer.bypassDNA ? "?bypassDNA=true" : ""
+                }`)
+              }
 
-          //     if(layer.elements[i].filename.split("_")[1].trim() == clothType){
-          //       if(clothType=="Sweat"){
-          //         let properElements = layer.elements.filter(element => element.filename.split("_")[1].trim() == clothType)     
-          //         let result = properElements[Math.floor(Math.random()*properElements.length)]
-          //         console.log("result: ",result)
-          //         return randNum.push(
-          //         `${result.id}:${result.filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`)
+              if(layer.elements[i].filename.split("_")[1].trim() == clothType){
+                if(clothType=="Sweat"){
+                  let properElements = layer.elements.filter(element => element.filename.split("_")[1].trim() == clothType)     
+                  let result = properElements[Math.floor(Math.random()*properElements.length)]
+                  console.log("result: ",result)
+                  return randNum.push(
+                  `${result.id}:${result.filename}${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`)
 
-          //       }
-          //       if(layer.elements[i].filename.split("_")[0].trim() == skinType ){
-          //         console.log("layer.elements[i].filename.split('_')[0].trim(): ", layer.elements[i].filename.split("_")[0].trim()," ||| skinType: ", skinType, " |||| layer.elements[i].filename.split('_')[1].trim(): ", layer.elements[i].filename.split("_")[1].trim()," ||| clothType: ",clothType)
-          //         return randNum.push(
-          //         `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //         ); 
-          //       }else{
-          //         console.log("random: : : ",random)
-          //         console.log("NO MATCH IN COLOR IN BODY skinType: skinType is: ",skinType," while our skinType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
-          //         console.log("NO MATCH IN COLOR IN BODY clothType: clothType is: ",clothType," while our clothType is : ",layer.elements[i].filename.split("_")[1].trim(), "proof: ",clothType==layer.elements[i].filename.split("_")[1].trim())
-          //         let properElements = layer.elements.filter(element => (element.filename.split("_")[0].trim() == skinType && element.filename.split("_")[1].trim() == clothType))
-          //         console.log("properElements: ",properElements)
-          //         if(properElements.length == 1) {
-          //           let result = properElements[0];
-          //           console.log("result: ",result)
-          //           return randNum.push(
-          //         `${result.id}:${result.filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`)
-          //         }else if(properElements.length==0){
-          //           console.log("properElements is empty, properElements: ",properElements," clothTypeSearching: ",clothType)
-          //         }else{
-          //           let result = properElements[Math.floor(Math.random()*properElements.length)]
-          //           console.log("result: ",result)
-          //             return randNum.push(
-          //         `${result.id}:${result.filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`)
-          //         // console.log("proper elements: ",properElements,"element.filename.split(_)[0].trim(): ",element.filename.split("_")[0].trim()," skinType: ",skinType," element.filename.split(_)[1].trim(): ",element.filename.split("_")[1].trim()," clothType: ",clothType," proof: ", (element.filename.split("_")[0].trim() == skinType && element.filename.split("_")[1].trim() == clothType))
-          //         }
-          //         random = Math.floor(Math.random() * totalWeight);
-          //         i=-1;
-          //       }  
-          //       // return randNum.push(
-          //       //   `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //       //     layer.bypassDNA ? "?bypassDNA=true" : ""
-          //       //   }`)
-          //     }else{
-          //         console.log("random: : : ",random)
-          //         console.log("NO MATCH IN COLOR IN BODY clothType: clothType is: ",clothType," while our clothtype is : ",layer.elements[i].filename.split("_")[1].trim(), "proof: ",clothType==layer.elements[i].filename.split("_")[1].trim())
-          //         random = Math.floor(Math.random() * totalWeight);
-          //         i=-1;
-          //     }
+                }
+                if(layer.elements[i].filename.split("_")[0].trim() == skinType ){
+                  console.log("layer.elements[i].filename.split('_')[0].trim(): ", layer.elements[i].filename.split("_")[0].trim()," ||| skinType: ", skinType, " |||| layer.elements[i].filename.split('_')[1].trim(): ", layer.elements[i].filename.split("_")[1].trim()," ||| clothType: ",clothType)
+                  return randNum.push(
+                  `${layer.elements[i].id}:${layer.elements[i].filename}${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                  ); 
+                }else{
+                  console.log("random: : : ",random)
+                  console.log("NO MATCH IN COLOR IN BODY skinType: skinType is: ",skinType," while our skinType is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
+                  console.log("NO MATCH IN COLOR IN BODY clothType: clothType is: ",clothType," while our clothType is : ",layer.elements[i].filename.split("_")[1].trim(), "proof: ",clothType==layer.elements[i].filename.split("_")[1].trim())
+                  let properElements = layer.elements.filter(element => (element.filename.split("_")[0].trim() == skinType && element.filename.split("_")[1].trim() == clothType))
+                  console.log("properElements: ",properElements)
+                  if(properElements.length == 1) {
+                    let result = properElements[0];
+                    console.log("result: ",result)
+                    return randNum.push(
+                  `${result.id}:${result.filename}${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`)
+                  }else if(properElements.length==0){
+                    console.log("properElements is empty, properElements: ",properElements," clothTypeSearching: ",clothType)
+                  }else{
+                    let result = properElements[Math.floor(Math.random()*properElements.length)]
+                    console.log("result: ",result)
+                      return randNum.push(
+                  `${result.id}:${result.filename}${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`)
+                  // console.log("proper elements: ",properElements,"element.filename.split(_)[0].trim(): ",element.filename.split("_")[0].trim()," skinType: ",skinType," element.filename.split(_)[1].trim(): ",element.filename.split("_")[1].trim()," clothType: ",clothType," proof: ", (element.filename.split("_")[0].trim() == skinType && element.filename.split("_")[1].trim() == clothType))
+                  }
+                  random = Math.floor(Math.random() * totalWeight);
+                  i=-1;
+                }  
+                // return randNum.push(
+                //   `${layer.elements[i].id}:${layer.elements[i].filename}${
+                //     layer.bypassDNA ? "?bypassDNA=true" : ""
+                //   }`)
+              }else{
+                  console.log("random: : : ",random)
+                  console.log("NO MATCH IN COLOR IN BODY clothType: clothType is: ",clothType," while our clothtype is : ",layer.elements[i].filename.split("_")[1].trim(), "proof: ",clothType==layer.elements[i].filename.split("_")[1].trim())
+                  random = Math.floor(Math.random() * totalWeight);
+                  i=-1;
+              }
 
-          // }
-          // else if(layer.name=="face"){
-          //   if(layer.elements[i].filename.split("_")[0].trim() == skinType && layer.elements[i].filename !== "bald#10.png"){
-          //     return randNum.push(
-          //         `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          //   }else{
-          //       console.log("random: : : ",random)
-          //       console.log("NO MATCH IN COLOR IN face: skinType is: ",skinType," while face is : ",layer.elements[i].filename.split("_")[0].trim(), "proof: ",skinType==layer.elements[i].filename.split("_")[0].trim())
-          //       random = Math.floor(Math.random() * totalWeight);
-          //       i=-1;
-          //   }
-          // }
-          // else if(layer.name=="head"){
-          //   return randNum.push(
-          //         `${layer.elements[i].id}:${layer.elements[i].filename}${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="heading"){
-          //   console.log("HEADING::: ",layer.elements)
-          //       return randNum.push(
-          //         `3:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="hair"){
-          //   console.log("second leg HHair:::",layer.elements)
-          //     return randNum.push(
-          //         `3:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="eyes"){
-          //   console.log("second leg EEyes:::",layer.elements)
-          //     return randNum.push(
-          //         `0:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="midface"){
-          //   console.log("second leg mmidface:::",layer.elements)
-          //     return randNum.push(
-          //         `1:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="mouth"){
-          //   console.log("second leg mmouth:::",layer.elements)
-          //     return randNum.push(
-          //         `0:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="ears"){
-          //   console.log("second leg eears:::",layer.elements)
-          //     return randNum.push(
-          //         `8:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="horns"){
-          //   console.log("second leg hhrons:::",layer.elements)
-          //     return randNum.push(
-          //         `1:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
-          // else if(layer.name=="earrings"){
-          //   console.log("SECOND LEG earrings: ",layer.elements)
-          //     return randNum.push(
-          //         `0:bald#10.png${
-          //           layer.bypassDNA ? "?bypassDNA=true" : ""
-          //         }`
-          //       );
-          // }
+          }
+          else if(layer.name=="face"){
+            return randNum.push(
+                  `22:bald#10.png${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+          }
+          else if(layer.name=="head"){
+            return randNum.push(
+                  `6:bald#10.png${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+          }
+          else if(layer.name=="heading"){
+            console.log("HEADING::: ",layer.elements)
+                return randNum.push(
+                  `3:bald#10.png${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+          }
+          else if(layer.name=="hair"){
+            console.log("second leg HHair:::",layer.elements)
+              return randNum.push(
+                  `0:bald#10.png${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+          }
+          else if(layer.name=="eyes"){
+            console.log("second leg EEyes:::",layer.elements)
+              return randNum.push(
+                  `0:bald#10.png${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+          }
+          else if(layer.name=="midface"){
+            console.log("second leg mmidface:::",layer.elements)
+              return randNum.push(
+                  `1:bald#10.png${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+          }
+          else if(layer.name=="mouth"){
+            console.log("second leg mmouth:::",layer.elements)
+              return randNum.push(
+                  `0:bald#10.png${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+          }
+          else if(layer.name=="ears"){
+            console.log("second leg eears:::",layer.elements)
+              return randNum.push(
+                  `8:bald#10.png${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+          }
+          else if(layer.name=="horns"){
+            console.log("second leg hhrons:::",layer.elements)
+              return randNum.push(
+                  `1:bald#10.png${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+          }
+          else if(layer.name=="earrings"){
+            console.log("SECOND LEG earrings: ",layer.elements)
+              return randNum.push(
+                  `0:bald#10.png${
+                    layer.bypassDNA ? "?bypassDNA=true" : ""
+                  }`
+                );
+          }
+          else if(layer.name=="lizardEarrings"){
+             return randNum.push(
+                `${layer.elements[i].id}:${layer.elements[i].filename}${
+                  layer.bypassDNA ? "?bypassDNA=true" : ""
+                }`
+              );
+          }
+          else if(layer.name=="lizardEyes"){
+            console.log("lizard eyes")
+            if(layer.elements[i].filename == "bald#10.png"){
+              console.log("found bald background")
+              i=-1;
+              random = Math.floor(Math.random() * totalWeight);
 
+            }else{
+                return randNum.push(
+                `${layer.elements[i].id}:${layer.elements[i].filename}${
+                  layer.bypassDNA ? "?bypassDNA=true" : ""
+                }`
+              );
+            }
+          }
+          else if(layer.name=="lizardFace"){
+            console.log("lizard face")
+            if(layer.elements[i].filename == "bald#10.png"){
+              console.log("found bald background")
+              i=-1;
+              random = Math.floor(Math.random() * totalWeight);
+
+            }else{
+                if(skinType==layer.elements[i].filename.split("_")[0].split("#")[0].trim()){
+                  return randNum.push(
+                    `${layer.elements[i].id}:${layer.elements[i].filename}${
+                      layer.bypassDNA ? "?bypassDNA=true" : ""
+                    }`
+                  );
+                }else{
+                    console.log("different colour lizzard face, skinType: ",skinType," layer.elements[i].filename.split('_')[0].trim(): ",layer.elements[i].filename.split("_")[0].split("#")[0].trim() )
+                    i=-1;
+                    random = Math.floor(Math.random() * totalWeight);
+                }
+            }
+          }
+          else if(layer.name=="lizardMidface"){
+            return randNum.push(
+                `${layer.elements[i].id}:${layer.elements[i].filename}${
+                  layer.bypassDNA ? "?bypassDNA=true" : ""
+                }`
+              );
+          }
+          else if(layer.name=="lizardHorns"){
+            return randNum.push(
+                `${layer.elements[i].id}:${layer.elements[i].filename}${
+                  layer.bypassDNA ? "?bypassDNA=true" : ""
+                }`
+              );
+          }
         }
       }
     }

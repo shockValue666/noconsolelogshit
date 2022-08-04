@@ -52,6 +52,12 @@ const layerConfigurations = [
       { name: "ears" },
       { name: "horns" },
       { name: "earrings" },
+
+      {name: "lizardFace"},
+      {name: "lizardEyes"},
+      {name: "lizardMidface"},
+      {name: "lizardHorns"},
+      {name: "lizardEarrings"},
     ],
   },
 ];
